@@ -9,6 +9,9 @@
 @model List<StudentAdminPortal.Models.Entities.Student>
 
 <h1 class="text-center">Student List</h1>
+<div class="text-right">
+    <a class="btn btn-primary" asp-controller="Students" asp-action="Create">Create</a>
+</div>
 
 <!-- Table to display student details -->
 <table class="table">
@@ -19,6 +22,7 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Subscribed</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -30,6 +34,10 @@
                 <td>@student.Email</td>
                 <td>@student.Phone</td>
                 <td>@student.Subscribed</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Students" asp-action="Update" asp-route-id="@student.Id">Edit</a>
+                    <a class="btn btn-danger" asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
