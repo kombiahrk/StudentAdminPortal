@@ -98,5 +98,27 @@ namespace StudentAdminPortal.Controllers
             // Redirect to the Index action after updating
             return RedirectToAction("Index");
         }
+
+        // Action method to Redirect to the Index action after deleting a student by id
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            // Find the student with the specified id in the database
+            var student = await dbContext.Students.FindAsync(id);
+
+            // If student is found, remove the student and update the database
+            if (student is not null)
+            {
+                // Remove the student from the database context
+                dbContext.Students.Remove(student);
+
+                // Save changes to the database
+                await dbContext.SaveChangesAsync();
+            }
+
+            // Redirect to the Index action after deleting
+            return RedirectToAction("Index");
+        }
+
     }
 }
