@@ -1,7 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using StudentAdminPortal.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register the ApplicationDbContext with the DI container using SQL Server as the database provider.
+// The connection string is retrieved from the configuration settings (e.g., appsettings.json) under the key "StudentPortal".
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("StudentPortal")));
 
 var app = builder.Build();
 
