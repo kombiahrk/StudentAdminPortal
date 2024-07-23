@@ -25,5 +25,13 @@ namespace StudentAdminPortal.Controllers
             // Pass the list of students to the view
             return View(allStudents);
         }
+
+        // Action method to render the view for creating a new student
+        [HttpGet]
+        public IActionResult Create()
+        {
+            // Return the Create view
+            return View();
+        }
     }
 }
