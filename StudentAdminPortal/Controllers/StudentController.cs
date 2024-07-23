@@ -16,7 +16,7 @@ namespace StudentAdminPortal.Controllers
         }
 
         // Action method that retrieves all students from the database and returns the default view
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             // Fetch all students asynchronously from the database
