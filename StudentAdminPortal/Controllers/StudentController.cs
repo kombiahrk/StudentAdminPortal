@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentAdminPortal.Data;
+using StudentAdminPortal.Models.Entities;
+using StudentAdminPortal.Models;
 
 namespace StudentAdminPortal.Controllers
 {
@@ -32,6 +34,29 @@ namespace StudentAdminPortal.Controllers
         {
             // Return the Create view
             return View();
+        }
+
+        // Action method to handle form submission for creating a new student
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateStudentDto createStudent)
+        {
+            // Map the DTO to a Student entity
+            var studentEntity = new Student()
+            {
+                Name = createStudent.Name,
+                Email = createStudent.Email,
+                Phone = createStudent.Phone,
+                Subscribed = createStudent.Subscribed,
+            };
+
+            // Add the new student to the database context
+            await dbContext.Students.AddAsync(studentEntity);
+
+            // Save changes to the database
+            await dbContext.SaveChangesAsync();
+
+            // Redirect to the Index action after saving the new student
+            return RedirectToAction("Index");
         }
     }
 }
