@@ -58,5 +58,22 @@ namespace StudentAdminPortal.Controllers
             // Redirect to the Index action after saving the new student
             return RedirectToAction("Index");
         }
+
+        // Action method to render the view for updating a student by id
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            // Find the student with the specified id in the database
+            var student = await dbContext.Students.FindAsync(id);
+
+            // If student is not found, return a 404 Not Found response
+            if (student is null)
+            {
+                return NotFound();
+            }
+
+            // Pass the student object to the Update.cshtml view for editing
+            return View(student);
+        }
     }
 }
