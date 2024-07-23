@@ -75,5 +75,28 @@ namespace StudentAdminPortal.Controllers
             // Pass the student object to the Update.cshtml view for editing
             return View(student);
         }
+
+        // Action method to handle form submission for updating a student
+        [HttpPost]
+        public async Task<IActionResult> Update(Student updateStudent)
+        {
+            // Retrieve the student to update from the database based on updateStudent.Id
+            var student = await dbContext.Students.FindAsync(updateStudent.Id);
+
+            // If the student exists in the database, update its properties with values from updateStudent
+            if (student is not null)
+            {
+                student.Name = updateStudent.Name;
+                student.Email = updateStudent.Email;
+                student.Phone = updateStudent.Phone;
+                student.Subscribed = updateStudent.Subscribed;
+
+                // Save changes to the database
+                await dbContext.SaveChangesAsync();
+            }
+
+            // Redirect to the Index action after updating
+            return RedirectToAction("Index");
+        }
     }
 }
