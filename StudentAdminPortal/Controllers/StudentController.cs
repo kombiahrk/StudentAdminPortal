@@ -120,5 +120,25 @@ namespace StudentAdminPortal.Controllers
             return RedirectToAction("Index");
         }
 
+        // Action method to handle form submission for delete a student
+        [HttpPost]
+        public async Task<IActionResult> Delete(Student deleteStudent)
+        {
+            // Retrieve the student to delete from the database based on deleteStudent.Id
+            var student = await dbContext.Students.FindAsync(deleteStudent.Id);
+
+            if (student is not null)
+            {
+                // Remove the student from the database context
+                dbContext.Students.Remove(student);
+
+                // Save changes to the database
+                await dbContext.SaveChangesAsync();
+            }
+
+            // Redirect to the Index action after deleting
+            return RedirectToAction("Index");
+        }
+
     }
 }
