@@ -5,4 +5,32 @@
     ViewData["Title"] = "Student List";
 }
 
+<!-- Model binding for a list of Student entities -->
+@model List<StudentAdminPortal.Models.Entities.Student>
+
 <h1 class="text-center">Student List</h1>
+
+<!-- Table to display student details -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Subscribed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.Phone</td>
+                <td>@student.Subscribed</td>
+            </tr>
+        }
+    </tbody>
+</table>
